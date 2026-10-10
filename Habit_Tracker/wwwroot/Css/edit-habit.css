@@ -1,0 +1,123 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 84px);
+    padding: 34px 16px;
+}
+
+.card {
+    width: min(560px, 100%);
+    padding: clamp(24px, 4vw, 40px);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: var(--shadow);
+}
+
+.card h2 {
+    margin: 0 0 28px 0;
+    text-align: center;
+    font-size: clamp(24px, 4vw, 34px);
+    letter-spacing: -0.04em;
+    overflow-wrap: anywhere;
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    color: var(--muted);
+    font-weight: 900;
+}
+
+.utc-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: #f2eee9;
+    color: var(--muted);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.status-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.status-btn {
+    padding: 13px 12px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: #fffaf6;
+    color: var(--muted);
+    font: inherit;
+    font-weight: 900;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.status-btn:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255, 122, 61, 0.42);
+}
+
+.status-btn.active {
+    color: white;
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--success), #178553);
+    box-shadow: 0 10px 22px rgba(40, 168, 107, 0.22);
+}
+
+#notCompletedBtn.active {
+    background: linear-gradient(135deg, #a09a95, #7b746f);
+    box-shadow: 0 10px 22px rgba(90, 80, 72, 0.16);
+}
+
+.hint {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.action-buttons button {
+    width: 100%;
+}
+
+.error {
+    min-height: 20px;
+    margin: 10px 0 0;
+    color: #d73939;
+    text-align: center;
+    font-weight: 800;
+}
+
+@media (max-width: 560px) {
+    .status-buttons,
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group label {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

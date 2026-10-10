@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Habit Tracker</title>
+    <link rel="stylesheet" href="Css/login.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Login</h2>
+
+            <form id="loginForm" onsubmit="return false;" autocomplete="off">
+                <input id="email"
+                       name="email"
+                       type="email"
+                       placeholder="Email"
+                       autocomplete="new-email"
+                       required />
+                <input id="password"
+                       name="password"
+                       type="password"
+                       placeholder="Password"
+                       autocomplete="new-password"
+                       required />
+
+                <button type="submit" onclick="login()">Login</button>
+            </form>
+
+            <p id="error" class="error"></p>
+
+            <p class="signup-link">
+                Don't have an account? <a href="register.html">Register</a>
+            </p>
+
+        </div>
+
+    </div>
+
+    <script src="Js/config.js"></script>
+    <script src="Js/login.js"></script>
+</body>
+</html>

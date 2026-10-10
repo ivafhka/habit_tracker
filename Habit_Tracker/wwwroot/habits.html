@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Все привычки - Habit Tracker</title>
+    <link rel="stylesheet" href="Css/style.css">
+    <link rel="stylesheet" href="Css/habits.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">Habit_Tracker</div>
+
+        <div class="header-buttons" id="auth-menu">
+            <a href="login.html" class="btn orange">Вход</a>
+            <a href="register.html" class="btn orange">Регистрация</a>
+        </div>
+    </header>
+
+    <div class="habits-container">
+
+        <div class="page-header">
+            <h1>Все привычки</h1>
+            <button class="btn orange" onclick="showAddHabitModal()">+ Добавить привычку</button>
+        </div>
+
+        <div id="habitsList" class="habits-list">
+            <div class="loading">Загрузка...</div>
+        </div>
+
+    </div>
+
+    <div id="addHabitModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddHabitModal()">&times;</span>
+            <h2>Новая привычка</h2>
+            <label class="field-label" for="habitTitle">Название</label>
+            <input type="text"
+                   id="habitTitle"
+                   placeholder="Например: Утренняя зарядка"
+                   maxlength="100" />
+            <label class="field-label" for="habitFrequency">Периодичность</label>
+            <select id="habitFrequency">
+                <option value="Daily">Ежедневная</option>
+                <option value="Weekly">Еженедельная</option>
+                <option value="Monthly">Ежемесячная</option>
+            </select>
+            <p id="habitError" class="error"></p>
+            <button class="btn orange" onclick="addHabit()">Создать</button>
+        </div>
+    </div>
+
+    <script src="Js/config.js"></script>
+    <script src="Js/habits.js"></script>
+
+</body>
+</html>

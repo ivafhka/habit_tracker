@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование привычки - Habit Tracker</title>
+    <link rel="stylesheet" href="Css/style.css">
+    <link rel="stylesheet" href="Css/edit-habit.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">Habit_Tracker</div>
+
+        <div class="header-buttons" id="auth-menu">
+            <a href="login.html" class="btn orange">Вход</a>
+            <a href="register.html" class="btn orange">Регистрация</a>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2 id="habitTitle">Загрузка...</h2>
+
+            <div class="form-group">
+                <label>Название привычки</label>
+                <input id="title" type="text" placeholder="Название привычки" />
+            </div>
+
+            <div class="form-group">
+                <label for="frequency">Периодичность</label>
+                <select id="frequency">
+                    <option value="Daily">Ежедневная</option>
+                    <option value="Weekly">Еженедельная</option>
+                    <option value="Monthly">Ежемесячная</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label id="completionLabel">Выполнение текущего периода <span class="utc-pill">UTC: <span id="utcToday">----</span></span></label>
+                <div class="status-buttons">
+                    <button id="completedBtn"
+                            class="status-btn"
+                            onclick="setCompleted(true)">
+                        Выполнена
+                    </button>
+                    <button id="notCompletedBtn"
+                            class="status-btn active"
+                            onclick="setCompleted(false)">
+                        Не выполнена
+                    </button>
+                </div>
+                <p class="hint" id="periodInfo">Период загружается...</p>
+                <p class="hint">Для ежедневной привычки прогресс сбрасывается каждый день, для еженедельной — через 7 дней от даты создания, для ежемесячной — каждый месяц от даты создания.</p>
+            </div>
+
+            <p id="error" class="error"></p>
+
+            <div class="action-buttons">
+                <button class="btn orange" onclick="save()">Сохранить</button>
+                <button class="btn gray" onclick="cancel()">Отмена</button>
+                <button class="btn danger" onclick="deleteHabit()">Удалить</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="Js/config.js"></script>
+    <script src="Js/edit-habit.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Habit Tracker</title>
+    <link rel="stylesheet" href="Css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-title">Habit_Tracker</div>
+
+        <div class="header-buttons" id="auth-menu">
+            <a href="login.html" class="btn orange">Вход</a>
+            <a href="register.html" class="btn orange">Регистрация</a>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <aside class="sidebar left">
+            <h3 id="habitsTitle">Все привычки</h3>
+            <button class="btn orange add-habit-btn"
+                    id="addHabitBtn"
+                    onclick="showAddHabitModal()"
+                    style="display: none;">
+                + Добавить
+            </button>
+            <ul id="allHabits">
+            </ul>
+        </aside>
+
+        <main class="center">
+
+            <div class="calendar-header">
+                <button id="prevMonth" class="month-nav">◀</button>
+                <h2 id="monthYear">Январь 2024</h2>
+                <button id="nextMonth" class="month-nav">▶</button>
+            </div>
+
+            <div class="weekdays">
+                <div>Пн</div>
+                <div>Вт</div>
+                <div>Ср</div>
+                <div>Чт</div>
+                <div>Пт</div>
+                <div>Сб</div>
+                <div>Вс</div>
+            </div>
+
+            <div class="calendar" id="calendar">
+            </div>
+
+            <div class="streaks">
+                <div>Текущая серия: <span id="currentStreak">0</span></div>
+                <div>Лучшая серия: <span id="maxStreak">0</span></div>
+            </div>
+
+        </main>
+
+        <aside class="sidebar right">
+            <h3>Привычки сегодня</h3>
+            <ul id="todayHabits">
+            </ul>
+        </aside>
+
+    </div>
+
+    <div id="addHabitModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddHabitModal()">&times;</span>
+            <h2>Новая привычка</h2>
+            <label class="field-label" for="habitTitle">Название</label>
+            <input type="text"
+                   id="habitTitle"
+                   placeholder="Например: Утренняя зарядка"
+                   maxlength="100" />
+            <label class="field-label" for="habitFrequency">Периодичность</label>
+            <select id="habitFrequency">
+                <option value="Daily">Ежедневная</option>
+                <option value="Weekly">Еженедельная</option>
+                <option value="Monthly">Ежемесячная</option>
+            </select>
+            <p id="habitError" class="error"></p>
+            <button class="btn orange" onclick="addHabit()">Создать</button>
+        </div>
+    </div>
+
+    <script src="Js/config.js"></script>
+    <script src="Js/app.js"></script>
+
+</body>
+</html>
