@@ -104,6 +104,7 @@ async function loadHabit() {
         document.getElementById("title").value = habit.title;
         document.getElementById("frequency").value = habit.frequency || "Daily";
         document.getElementById("utcToday").textContent = getUtcTodayDateString();
+        applyReminderToForm(habit.reminderTimeUtc);
 
         await loadTodayStatus();
     } catch (e) {
@@ -266,7 +267,7 @@ async function save() {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({ title, frequency })
+            body: JSON.stringify({ title, frequency, reminderTimeUtc: getReminderTimeUtcFromForm() })
         });
 
         if (!updateRes.ok) {
@@ -295,7 +296,7 @@ async function save() {
 
         window.location.href = "/index.html";
     } catch (e) {
-        console.error("Save error:", e);
+        console.error(" error:", e);
         error.innerText = "Ошибка сервера: " + e.message;
     }
 }
@@ -351,5 +352,6 @@ window.addEventListener("load", async () => {
         await loadHabit();
         document.getElementById("frequency")?.addEventListener("change", updateCurrentPeriodStatusFromEntries);
         scheduleUtcMidnightRefresh();
+        await refreshPushButton();
     }
 });

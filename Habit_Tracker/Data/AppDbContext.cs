@@ -8,6 +8,7 @@ namespace Habit_Tracker.Data
         public DbSet<User> Users => Set<User>();
         public DbSet<Habit> Habits => Set<Habit>();
         public DbSet<HabitEntry> HabitEntries => Set<HabitEntry>();
+        public DbSet<UserPushSubscription> PushSubscriptions => Set<UserPushSubscription>();
         public AppDbContext(DbContextOptions<AppDbContext> opt): base(opt)
         {
         }

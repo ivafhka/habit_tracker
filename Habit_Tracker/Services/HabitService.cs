@@ -42,7 +42,7 @@ namespace Habit_Tracker.Services
                 .FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId);
         }
 
-        public async Task UpdateHabitAsync(int id, int userId, string title, HabitFrequency? frequency = null)
+        public async Task UpdateHabitAsync(int id, int userId, string title, HabitFrequency? frequency = null, TimeOnly? reminderTimeUtc = null)
         {
             if (string.IsNullOrWhiteSpace(title))
                 throw new Exception("Введите название привычки");
@@ -51,9 +51,16 @@ namespace Habit_Tracker.Services
             if (habit == null)
                 throw new Exception("Habit не существует");
 
+            var frequencyChanged = frequency.HasValue && frequency.Value != habit.Frequency;
+
             habit.Title = title.Trim();
             if (frequency.HasValue)
                 habit.Frequency = frequency.Value;
+
+            // Если время напоминания или периодичность изменились, сбрасываем отметку "уже напоминали".
+            if (habit.ReminderTimeUtc != reminderTimeUtc || frequencyChanged)
+                habit.LastReminderPeriodStart = null;
+            habit.ReminderTimeUtc = reminderTimeUtc;
 
             await _context.SaveChangesAsync();
             await _redis.RemoveAsync(CacheKeys.Dashboard(userId));

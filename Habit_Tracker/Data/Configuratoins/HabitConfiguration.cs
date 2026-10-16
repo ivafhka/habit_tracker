@@ -15,6 +15,9 @@ namespace Habit_Tracker.Data.Configuratoins
             builder.Property(x => x.Frequency).HasConversion<int>().IsRequired();
             builder.Property(x => x.CreatedAtUtc).HasColumnType("timestamp with time zone").IsRequired();
             builder.HasIndex(x => new { x.UserId, x.Title }).IsUnique();
+            builder.Property(x => x.ReminderTimeUtc).HasColumnType("time without time zone");
+            builder.Property(x => x.LastReminderPeriodStart).HasColumnType("date");
+            builder.HasIndex(x => new { x.UserId, x.Title }).IsUnique();
             builder.HasMany(x => x.Entries)
                 .WithOne(x => x.Habit)
                 .HasForeignKey(x => x.HabitId)

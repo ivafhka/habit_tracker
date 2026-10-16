@@ -9,6 +9,10 @@
         public DateTime CreatedAtUtc { get; private set; } = DateTime.UtcNow;
         public List<HabitEntry> Entries { get; set; } = new();
         public User User { get; private set; }
+        public TimeOnly? ReminderTimeUtc { get; set; }
+
+        // Начало периода, за который напоминание уже отправлено (чтобы не слать повторно).
+        public DateTime? LastReminderPeriodStart { get; set; }
 
         public Habit() { }
 

@@ -55,7 +55,16 @@
                 <p class="hint" id="periodInfo">Период загружается...</p>
                 <p class="hint">Для ежедневной привычки прогресс сбрасывается каждый день, для еженедельной — через 7 дней от даты создания, для ежемесячной — каждый месяц от даты создания.</p>
             </div>
-
+            <div class="form-group">
+                <label for="reminderTime">Напоминание (push-уведомление)</label>
+                <div class="reminder-row">
+                    <input id="reminderEnabled" type="checkbox" />
+                    <input id="reminderTime" type="time" value="20:00" />
+                </div>
+                <p class="hint">Придёт, если в последний день периода привычка ещё не выполнена. Время указывается по вашему местному времени.</p>
+                <button type="button" class="btn gray" id="pushBtn" onclick="togglePush()">Включить уведомления на этом устройстве</button>
+                <p class="hint" id="pushStatus"></p>
+            </div>
             <p id="error" class="error"></p>
 
             <div class="action-buttons">
@@ -69,6 +78,7 @@
     </div>
 
     <script src="Js/config.js"></script>
+    <script src="Js/push.js"></script>
     <script src="Js/edit-habit.js"></script>
 
 </body>

@@ -83,7 +83,26 @@
     background: linear-gradient(135deg, #a09a95, #7b746f);
     box-shadow: 0 10px 22px rgba(90, 80, 72, 0.16);
 }
+.reminder-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
+    .reminder-row input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        flex: none;
+    }
+
+    .reminder-row input[type="time"] {
+        flex: 1;
+    }
+
+#pushBtn {
+    margin-top: 12px;
+    width: 100%;
+}
 .hint {
     margin: 10px 0 0;
     color: var(--muted);

@@ -77,7 +77,16 @@ namespace Habit_Tracker.Controllers
             try
             {
                 var userId = GetUserId();
-                await _habitService.UpdateHabitAsync(id, userId, request.Title, request.Frequency);
+
+                TimeOnly? reminderTime = null;
+                if (!string.IsNullOrWhiteSpace(request.ReminderTimeUtc))
+                {
+                    if (!TimeOnly.TryParseExact(request.ReminderTimeUtc, "HH:mm", out var parsed))
+                        return BadRequest(new { message = "Время напоминания должно быть в формате HH:mm" });
+                    reminderTime = parsed;
+                }
+
+                await _habitService.UpdateHabitAsync(id, userId, request.Title, request.Frequency, reminderTime);
 
                 var habit = await _habitService.GetHabitByIdAsync(id, userId);
                 return Ok(ToHabitResponse(habit!));
@@ -166,7 +175,8 @@ namespace Habit_Tracker.Controllers
                 id = habit.Id,
                 title = habit.Title,
                 frequency = habit.Frequency.ToString(),
-                createdAtUtc = habit.CreatedAtUtc
+                createdAtUtc = habit.CreatedAtUtc,
+                reminderTimeUtc = habit.ReminderTimeUtc?.ToString("HH:mm")
             };
         }
 
@@ -181,6 +191,8 @@ namespace Habit_Tracker.Controllers
         {
             public string Title { get; set; } = string.Empty;
             public HabitFrequency? Frequency { get; set; }
+            // "HH:mm" в UTC или null, если напоминание выключено
+            public string? ReminderTimeUtc { get; set; }
         }
 
         public record AddHabitRequest(DateTime Date, bool Completed);

@@ -47,16 +47,9 @@ builder.Services.AddAuthentication(opt =>
 });
 
 builder.Services.AddAuthorization();
-
-// ✅ ЗАМЕНА REDIS НА IN-MEMORY CACHE
-// Закомментируйте Redis:
-// builder.Services.AddStackExchangeRedisCache(opt =>
-// {
-//     opt.Configuration = "localhost:6379";
-//     opt.InstanceName = "HabitTracker";
-// });
-
-// Добавьте встроенный InMemory кэш:
+// Web Push: ключи VAPID берутся из конфигурации (VapidSettings)
+builder.Services.Configure<VapidSettings>(
+    builder.Configuration.GetSection("VapidSettings"));
 builder.Services.AddDistributedMemoryCache();
 
 // Сервисы остаются без изменений
@@ -65,6 +58,8 @@ builder.Services.AddTransient<HabitService>();
 builder.Services.AddScoped<DashboardService>();
 builder.Services.AddScoped<StatisticsService>();
 builder.Services.AddScoped<RedisCacheService>(); // ← Работает с IDistributedCache
+builder.Services.AddScoped<PushNotificationService>();
+builder.Services.AddHostedService<HabitReminderService>(); // проверяет напоминания раз в минуту
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {

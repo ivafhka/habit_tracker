@@ -43,6 +43,11 @@ namespace Habit_Tracker.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
+                    b.Property<DateTime?>("LastReminderPeriodStart")
+                        .HasColumnType("date");
+
+                    b.Property<TimeOnly?>("ReminderTimeUtc")
+                        .HasColumnType("time without time zone");
 
                     b.HasKey("Id");
 
@@ -76,6 +81,44 @@ namespace Habit_Tracker.Migrations
 
                     b.ToTable("HabitEntries", (string)null);
                 });
+            modelBuilder.Entity("Habit_Tracker.Models.UserPushSubscription", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("integer");
+
+                NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                b.Property<string>("Auth")
+                    .IsRequired()
+                    .HasMaxLength(256)
+                    .HasColumnType("character varying(256)");
+
+                b.Property<DateTime>("CreatedAtUtc")
+                    .HasColumnType("timestamp with time zone");
+
+                b.Property<string>("Endpoint")
+                    .IsRequired()
+                    .HasMaxLength(2048)
+                    .HasColumnType("character varying(2048)");
+
+                b.Property<string>("P256dh")
+                    .IsRequired()
+                    .HasMaxLength(256)
+                    .HasColumnType("character varying(256)");
+
+                b.Property<int>("UserId")
+                    .HasColumnType("integer");
+
+                b.HasKey("Id");
+
+                b.HasIndex("Endpoint")
+                    .IsUnique();
+
+                b.HasIndex("UserId");
+
+                b.ToTable("PushSubscriptions", (string)null);
+            });
 
             modelBuilder.Entity("Habit_Tracker.Models.User", b =>
                 {
@@ -117,6 +160,17 @@ namespace Habit_Tracker.Migrations
 
                     b.Navigation("User");
                 });
+
+            modelBuilder.Entity("Habit_Tracker.Models.UserPushSubscription", b =>
+            {
+                b.HasOne("Habit_Tracker.Models.User", "User")
+                    .WithMany()
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("User");
+            });
 
             modelBuilder.Entity("Habit_Tracker.Models.HabitEntry", b =>
                 {
