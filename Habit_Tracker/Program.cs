@@ -75,5 +75,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+// React SPA: любые адреса, не найденные среди файлов и API (например /habits), отдают index.html
+app.MapFallbackToFile("index.html");
 
 app.Run();

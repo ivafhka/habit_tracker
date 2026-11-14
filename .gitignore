@@ -480,3 +480,7 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# React (Vite) фронтенд
+Habit_Tracker/ClientApp/node_modules/
+Habit_Tracker/ClientApp/dist/

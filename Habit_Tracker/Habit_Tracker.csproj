@@ -32,4 +32,12 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- Исходники React-фронтенда не входят в сборку .NET -->
+    <Compile Remove="ClientApp\**" />
+    <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="ClientApp\**" />
+    <None Remove="ClientApp\**" />
+  </ItemGroup>
+
 </Project>
