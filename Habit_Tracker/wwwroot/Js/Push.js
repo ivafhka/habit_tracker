@@ -1,6 +1,13 @@
 ﻿// Подписка на Web Push. Требует HTTPS (на localhost работает и по http).
 
+// В Electron нет облачного push-сервиса Google (FCM), поэтому pushManager.subscribe там
+// всегда падает. Считаем push недоступным и показываем понятное сообщение.
+function isElectronApp() {
+    return Boolean(window.electronAPI && window.electronAPI.isElectron);
+}
+
 function isPushSupported() {
+    if (isElectronApp()) return false;
     return "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
 }
 
@@ -19,6 +26,9 @@ async function getCurrentPushSubscription() {
 }
 
 async function enablePush() {
+    if (isElectronApp()) {
+        throw new Error("В десктопном приложении push-уведомления пока не поддерживаются");
+    }
     if (!isPushSupported()) {
         throw new Error("Этот браузер не поддерживает push-уведомления");
     }
