@@ -1,4 +1,4 @@
-﻿// Service worker: получает push, даже когда сайт закрыт, и показывает уведомление.
+// Service worker: получает push, даже когда сайт закрыт, и показывает уведомление.
 self.addEventListener("push", event => {
     let data = {};
     try { data = event.data ? event.data.json() : {}; } catch { data = {}; }
