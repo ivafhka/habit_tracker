@@ -1,15 +1,11 @@
 import { API_URL } from "./config.js";
 import { getToken } from "./api.js";
 
-const isPushSupported = () =>
-  "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+const isElectronApp = () => Boolean(window.electronAPI && window.electronAPI.isElectron);
 
-function urlBase64ToUint8Array(base64String) {
-  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-  const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
-  const raw = atob(base64);
-  return Uint8Array.from(raw, (c) => c.charCodeAt(0));
-}
+const isPushSupported = () =>
+    !isElectronApp() &&
+    "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
 
 async function getRegistration() {
   const reg = await navigator.serviceWorker.register("/sw.js");
@@ -24,6 +20,9 @@ export async function getCurrentPushSubscription() {
 }
 
 export async function enablePush() {
+  if (isElectronApp()) {
+    throw new Error("В десктопном приложении push-уведомления пока не поддерживаются");
+  }
   if (!isPushSupported()) {
     throw new Error("Этот браузер не поддерживает push-уведомления");
   }

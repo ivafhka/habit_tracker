@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'none'; style-src 'unsafe-inline'; script-src 'self'">
+    <title>Habit Tracker — нет связи</title>
+    <style>
+        :root {
+            --bg: #f7f3ee;
+            --text: #231f20;
+            --muted: #746b65;
+            --border: rgba(60, 45, 35, 0.12);
+            --accent: #ff7a3d;
+            --accent-dark: #ec5f22;
+            --danger: #d73939;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(255, 122, 61, 0.18), transparent 24rem),
+                linear-gradient(135deg, #fffaf5 0%, var(--bg) 48%, #f1eee9 100%);
+        }
+        .card {
+            width: 100%;
+            max-width: 380px;
+            padding: 28px 24px;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            background: #fff;
+            box-shadow: 0 18px 50px rgba(72, 49, 31, 0.12);
+        }
+        h1 { margin: 0 0 8px; font-size: 22px; letter-spacing: -0.03em; }
+        p { margin: 0 0 14px; color: var(--muted); line-height: 1.45; font-size: 14px; }
+        code {
+            padding: 2px 6px;
+            border-radius: 6px;
+            background: #f2eee9;
+            color: var(--text);
+            overflow-wrap: anywhere;
+        }
+        label { display: block; margin: 16px 0 8px; color: var(--muted); font-weight: 800; font-size: 14px; }
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #fffaf6;
+            color: var(--text);
+            font: inherit;
+            outline: none;
+        }
+        input:focus { border-color: rgba(255, 122, 61, 0.64); box-shadow: 0 0 0 4px rgba(255, 122, 61, 0.12); }
+        .row { display: flex; gap: 10px; margin-top: 14px; }
+        button {
+            flex: 1;
+            min-height: 44px;
+            padding: 10px 14px;
+            border: 0;
+            border-radius: 999px;
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .primary { color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); }
+        .secondary { color: var(--text); background: #f2eee9; }
+        .error { min-height: 18px; margin: 10px 0 0; color: var(--danger); font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Нет связи с сервером</h1>
+        <p>Не удалось открыть <code id="serverUrl">…</code></p>
+        <p id="reason"></p>
+        <p>Запустите сервер (<code>dotnet run</code> в папке <code>Habit_Tracker</code>, база PostgreSQL должна работать) и нажмите «Повторить».</p>
+
+        <label for="urlInput">Адрес сервера</label>
+        <input id="urlInput" type="text" spellcheck="false" placeholder="http://localhost:5288">
+
+        <p class="error" id="error"></p>
+
+        <div class="row">
+            <button class="secondary" id="retryBtn" type="button">Повторить</button>
+            <button class="primary" id="saveBtn" type="button">Сохранить</button>
+        </div>
+    </div>
+    <script src="offline.js"></script>
+</body>
+</html>
